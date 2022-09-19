@@ -2,6 +2,7 @@
 import Layout from './Layout.astro';
 import 'reveal.js/dist/reveal.css';
 import 'reveal.js/dist/theme/black.css';
+import 'reveal.js/plugin/highlight/monokai.css';
 
 export interface Props {
   title?: string;
@@ -28,12 +29,20 @@ const { title = 'Slides' } = Astro.props;
     const reveal = Reveal({
       plugins: [RevealHighlight, RevealNotes],
     });
-    reveal.initialize({ hash: true });
+    reveal.initialize({
+      embedded: true,
+      hash: true,
+      slideNumber: true
+    });
   </script>
 </Layout>
 
 <style>
   .home-button {
     color: var(--r-link-color);
+  }
+
+  .reveal {
+    height: 100vh !important;
   }
 </style>

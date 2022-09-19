@@ -1,0 +1,287 @@
+---
+import Reveal from '../../layouts/Reveal.astro';
+import { RunButton } from '../../components';
+---
+
+<Reveal title="Node.js 的前世今生">
+  <section>
+    <iconify-icon class="text-[16rem]" icon="logos:nodejs" />
+    <h2>Node.js 前世今生</h2>
+  </section>
+
+  <section>
+    <h2>
+      <a target="_blank" href="https://nodejs.org">Node.js</a>
+    </h2>
+    <p class="text-2xl">
+      Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
+    </p>
+    <p>提到 Node.js, 总绕不过 JavaScript.</p>
+  </section>
+
+  <section data-auto-animate>
+    <iconify-icon class="text-[16rem]" icon="logos:javascript" />
+    <h2>JavaScript</h2>
+    <p>December 4, 1995</p>
+    <div class="flex justify-center items-center gap-8">
+      <iconify-icon
+        class="text-7xl"
+        icon="openmoji:netscape-navigator"
+        data-id="netscape-navigator"
+      />
+      <iconify-icon class="text-7xl" icon="logos:opera" data-id="opera" />
+      <iconify-icon
+        class="text-7xl"
+        icon="logos:internetexplorer"
+        data-id="internetexplorer"
+      />
+      <iconify-icon class="text-7xl" icon="logos:firefox" data-id="firefox" />
+      <iconify-icon class="text-7xl" icon="logos:safari" data-id="safari" />
+      <iconify-icon class="text-7xl" icon="logos:chrome" data-id="chrome" />
+      <iconify-icon
+        class="text-7xl"
+        icon="logos:microsoft-edge"
+        data-id="microsoft-edge"
+      />
+    </div>
+  </section>
+
+  <section data-auto-animate>
+    <div class="flex flex-col justify-center items-center gap-8">
+      <table class="table text-2xl">
+        <tbody>
+          <tr class="hover">
+            <td
+              ><iconify-icon
+                class="text-7xl"
+                icon="openmoji:netscape-navigator"
+                data-id="netscape-navigator"
+              />
+              <iconify-icon
+                class="text-7xl"
+                icon="logos:firefox"
+                data-id="firefox"
+              />
+            </td>
+            <td>SpiderMonkey</td>
+          </tr>
+          <tr class="hover">
+            <td
+              ><iconify-icon
+                class="text-7xl"
+                icon="logos:internetexplorer"
+                data-id="internetexplorer"
+              />
+            </td>
+            <td>Chakra</td>
+          </tr>
+          <tr class="hover">
+            <td
+              ><iconify-icon
+                class="text-7xl"
+                icon="logos:safari"
+                data-id="safari"
+              />
+            </td>
+            <td>JavaScriptCore</td>
+          </tr>
+          <tr class="hover">
+            <td
+              ><iconify-icon
+                class="text-7xl"
+                icon="logos:chrome"
+                data-id="chrome"
+              />
+              <iconify-icon
+                class="text-7xl"
+                icon="logos:opera"
+                data-id="opera"
+              />
+              <iconify-icon
+                class="text-7xl"
+                icon="logos:microsoft-edge"
+                data-id="microsoft-edge"
+              />
+            </td>
+            <td>V8</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <section>
+      <h2>ry</h2>
+      <p>2009</p>
+      <p>
+        <a
+          target="_blank"
+          href="https://github.com/nodejs/node/tree/main/deps/v8"
+          ><iconify-icon icon="logos:chrome" />
+        </a>
+        <iconify-icon icon="line-md:plus" />
+        <a target="_blank" href="https://github.com/nodejs/node/tree/main/src"
+          ><iconify-icon icon="gg:c-plus-plus" />
+        </a>
+        <iconify-icon icon="line-md:arrow-right" />
+        <iconify-icon icon="logos:nodejs-icon" />
+      </p>
+      <ul>
+        <li>V8 很快, 很专业.</li>
+        <li>V8 是用 C++ 写的.</li>
+      </ul>
+      <p class="text-sm text-base-content">
+        历史上曾经出现过运行在 JVM 上的 Rhino, .Net 上的 JScript, 以及其他<a
+          target="_blank"
+          href="https://en.wikipedia.org/wiki/List_of_server-side_JavaScript_implementations"
+          >五花八门的实现</a
+        >.
+      </p>
+    </section>
+
+    <section>
+      <h5>Node.js</h5>
+      <p>
+        <iconify-icon icon="logos:chrome" />
+        <iconify-icon icon="line-md:plus" />
+        <iconify-icon icon="gg:c-plus-plus" />
+        <iconify-icon icon="line-md:arrow-right" />
+        <iconify-icon icon="logos:nodejs-icon" />
+      </p>
+      <h5>Deno</h5>
+      <p>
+        <iconify-icon icon="logos:chrome" />
+        <iconify-icon icon="line-md:plus" />
+        <iconify-icon icon="vscode-icons:file-type-rust" />
+        <iconify-icon icon="line-md:arrow-right" />
+        <iconify-icon icon="logos:deno" />
+      </p>
+      <h5>Bun</h5>
+      <p>
+        <iconify-icon icon="logos:safari" />
+        <iconify-icon icon="line-md:plus" />
+        <iconify-icon icon="vscode-icons:file-type-zig" />
+        <iconify-icon icon="line-md:arrow-right" />
+        <iconify-icon icon="logos:bun" />
+      </p>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2>
+        <a
+          target="_blank"
+          href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference"
+          >JavaScript reference</a
+        >
+      </h2>
+      <pre><code>{`
+        /* https://tc39.es */
+
+        @Get('/users') getUsers() {};
+      `}</code>
+    </pre>
+    </section>
+
+    <section>
+      <a target="_blank" href="https://github.com/tc39/proposal-do-expressions"
+        >tc39/proposal-do-expressions</a
+      >
+      <pre><code>{`
+        let result = do {
+          let v = f();
+          v * v + 1
+        };
+      `}</code></pre>
+    </section>
+
+    <section>
+      <a
+        target="_blank"
+        href="https://github.com/tc39/proposal-pipeline-operator"
+        >tc39/proposal-pipeline-operator</a
+      >
+      <pre><code>{`
+        let data = url
+          |> await fetch
+          |> await %.json();
+      `}</code></pre>
+    </section>
+
+    <section>
+      <a
+        target="_blank"
+        href="https://github.com/tc39/proposal-pattern-matching"
+        >tc39/proposal-pattern-matching</a
+      >
+      <pre><code>{`
+        const res = await fetch(api);
+        match (res) {
+          when ({
+            status: 200, headers: { 'Content-Length': size }
+          }):
+            console.log('size is', size);
+          when ({ status: 404 }):
+            console.log('API not found');
+          when ({ status }) if (status >= 400): do {
+            throw new RequestError(res);
+          }
+        };
+      `}</code></pre>
+    </section>
+  </section>
+
+  <section>
+    <h2>
+      <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API"
+        >Web API</a
+      >
+    </h2>
+    <p>
+      Web API 是用于开发 Web 时使用的浏览器接口, 它们不是 JavaScript
+      的必要组成部分. 例如:
+    </p>
+    <ul>
+      <li><code>window.getSelection</code></li>
+      <li><code>document.getElementById</code></li>
+      <li><code>location.href</code></li>
+      <li><code>localStorage</code></li>
+      <li><code>fetch</code></li>
+      <li><code>console.log</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What's mean?</h2>
+    <p>JavaScript 没有统一的标准库.</p>
+    <p>JavaScript 没有 IO, 写不出 Hello world. 😅</p>
+  </section>
+
+  <section>
+    <h2>你离 Node.js 很近</h2>
+    <p>每个前端的电脑上都安装了 Node.js.</p>
+    <p>很多 JS 代码能在 Node.js 里跑起来.</p>
+    <div class="flex">
+      <img
+        class="flex-1 w-1/2 object-contain"
+        src="/images/chrome-console.png"
+      />
+      <img class="flex-1 w-1/2 object-contain" src="/images/node-repl.png" />
+    </div>
+  </section>
+
+  <section>
+    <code>ls</code>
+    <pre><code>{`
+      const fs = require('fs/promises');
+
+      const files = await fs.readdir('.')
+      const result = files.join('\\n');
+
+      console.log(result);
+    `}</code></pre>
+    <RunButton client:visible api="ls" />
+  </section>
+</Reveal>
