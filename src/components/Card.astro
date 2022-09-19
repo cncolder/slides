@@ -1,0 +1,22 @@
+---
+export interface Props {
+  cover: string;
+  title: string;
+  link: string;
+}
+
+const { cover, title, link } = Astro.props;
+---
+
+<div class="card w-96 glass">
+  <figure>
+    <img class="w-80" src={cover} alt="Node.js" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title text-3xl">{title}</h2>
+    <slot />
+    <div class="card-actions justify-end">
+      <a class="btn btn-primary" href={link}>Watch</a>
+    </div>
+  </div>
+</div>
