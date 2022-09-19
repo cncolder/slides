@@ -1,18 +1,17 @@
 ---
 export interface Props {
-  cover: string;
   title: string;
   link: string;
 }
 
-const { cover, title, link } = Astro.props;
+const { title, link } = Astro.props;
 ---
 
-<div class="card w-96 glass">
+<div class="card w-96 glass shadow-md">
   <figure>
-    <img class="w-80" src={cover} alt="Node.js" />
+    <slot name="cover" />
   </figure>
-  <div class="card-body">
+  <div class="card-body items-center">
     <h2 class="card-title text-3xl">{title}</h2>
     <slot />
     <div class="card-actions justify-end">

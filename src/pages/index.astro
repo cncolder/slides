@@ -6,24 +6,29 @@ import Card from '../components/Card.astro';
 <Layout title="Home">
   <header class="fixed top-0 left-0 right-0">
     <nav class="navbar bg-neutral text-neutral-content">
-      <div class="navbar-start"></div>
-      <div class="navbar-center">
-        <h1 class="text-5xl font-bold">Slides</h1>
+      <div class="navbar-start">
+        <h1 class="text-4xl font-bold">Slides</h1>
       </div>
-      <div class="navbar-end"></div>
+      <div class="navbar-center"></div>
+      <div class="navbar-end">
+        <a
+          class="avatar fill-current"
+          target="_blank"
+          href="https://github.com/cncolder/slides"
+        >
+          <iconify-icon class="text-6xl" icon="line-md:github-loop" />
+        </a>
+      </div>
     </nav>
   </header>
 
   <main class="container mx-auto my-32 flex flex-col items-center">
     <div class="flex flex-col justify-center gap-4">
-      <Card
-        cover="https://nodejs.org/static/images/logo.svg"
-        title="Node.js 的前世今生"
-        link="/nodejs-history"
-      >
-      <p>从哪里来, 到哪里去.</p>
-      <p>可知人们对你的期许.</p>
-    </Card>
+      <Card title="Node.js 前世今生" link="/nodejs-history">
+        <iconify-icon class="text-9xl" icon="logos:nodejs" slot="cover" />
+        <p>从哪里来, 到哪里去.</p>
+        <p>可知人们对你的期许.</p>
+      </Card>
     </div>
   </main>
 </Layout>
