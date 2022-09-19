@@ -2,9 +2,9 @@
   "name": "slides",
   "version": "1.0.0",
   "private": true,
-  "description": "Colder's presentation slides",
+  "description": "My slides",
+  "homepage": "https://collides.netlify.app",
   "author": "Colder",
-  "main": "index.js",
   "scripts": {
     "build": "astro build",
     "dev": "astro dev",
