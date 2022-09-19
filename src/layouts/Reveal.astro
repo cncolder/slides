@@ -1,0 +1,25 @@
+---
+import Layout from './Layout.astro';
+import 'reveal.js/dist/reveal.css';
+import 'reveal.js/dist/theme/black.css';
+
+export interface Props {
+  title?: string;
+}
+
+const { title = 'Slides' } = Astro.props;
+---
+
+<Layout title={title}>
+  <slot />
+
+  <script>
+    import Reveal from 'reveal.js/dist/reveal.esm.js';
+    import RevealHighlight from 'reveal.js/plugin/highlight/highlight.esm.js';
+    import RevealNotes from 'reveal.js/plugin/notes/notes.esm.js';
+    const reveal = Reveal({
+      plugins: [RevealHighlight, RevealNotes],
+    });
+    reveal.initialize();
+  </script>
+</Layout>
