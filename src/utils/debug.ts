@@ -15,7 +15,7 @@ export function debug(metaUrl: string) {
     Debug.log = console.log;
   }
 
-  const matched = metaUrl.match(/\/src\/([^?]+)/)?.[1];
+  const matched = metaUrl?.match(/\/src\/([^?]+)/)?.[1];
   const instance = Debug(`app:${matched}`);
 
   // Force enable for development.
