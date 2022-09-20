@@ -1,7 +1,6 @@
 import clsx from 'clsx';
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useAsyncFn } from 'react-use';
 import { debug } from '../utils';
 
 const log = debug(import.meta.url);
@@ -12,16 +11,22 @@ interface RunButtonProps {
 
 export function RunButton({ api }: RunButtonProps) {
   const modalToggleRef = useRef<HTMLInputElement>(null);
-
   const modalId = useMemo(() => `run-result-modal-${Date.now()}`, []);
 
-  const [{ loading, value }, run] = useAsyncFn(async () => {
-    log('run %s', api);
-    const res = await fetch(api);
-    const text = await res.text();
-    modalToggleRef.current?.click();
-    return text;
-  });
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState('');
+  const run = useCallback(async () => {
+    try {
+      setLoading(true);
+      log('run %s', api);
+      const res = await fetch(api);
+      const text = await res.text();
+      setResult(text);
+      modalToggleRef.current?.click();
+    } finally {
+      setLoading(false);
+    }
+  }, [api]);
 
   const containerRef = useRef<HTMLElement>();
 
@@ -57,7 +62,7 @@ export function RunButton({ api }: RunButtonProps) {
             <label htmlFor={modalId} className="modal cursor-pointer">
               <div className="modal-box mockup-window p-0 py-5 bg-base-300">
                 <pre className="px-6">
-                  <code>{value}</code>
+                  <code>{result}</code>
                 </pre>
               </div>
             </label>

@@ -15,4 +15,10 @@ declare namespace astroHTML.JSX {
   }
 }
 
+declare module 'reveal.js/dist/reveal.esm.js' {
+  export default class Reveal {
+    constructor(options: any);
+    initialize(options: any): void;
+  }
+}
 declare module 'reveal.js/*' {}

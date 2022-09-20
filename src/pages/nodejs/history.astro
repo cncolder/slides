@@ -1,6 +1,6 @@
 ---
 import Reveal from '../../layouts/Reveal.astro';
-import { RunButton } from '../../components';
+import { RunKitEmbed } from '../../components';
 ---
 
 <Reveal title="Node.js 的前世今生">
@@ -287,15 +287,20 @@ import { RunButton } from '../../components';
 
   <section>
     <code>ls</code>
-    <pre><code data-trim data-line-numbers>{`
-      const fs = require('fs/promises');
+    <RunKitEmbed client:visible>
+      <code data-trim
+        >{
+          `
+            const fs = require('fs/promises');
 
-      const files = await fs.readdir('.')
-      const result = files.join('\\n');
+            const files = await fs.readdir('.')
+            const result = files.join('\\n');
 
-      console.log(result);
-    `}</code></pre>
-    <RunButton client:visible api="ls" />
+            console.log(result);
+          `
+        }
+      </code>
+    </RunKitEmbed>
   </section>
 
   <section>
@@ -323,9 +328,7 @@ import { RunButton } from '../../components';
         >
         <span class="text-error">ESNext</span>
       </p>
-      <p class="fragment">
-        Babel 可以把高版本代码编译到低版本.
-      </p>
+      <p class="fragment">Babel 可以把高版本代码编译到低版本.</p>
       <p class="fragment flex justify-center items-center gap-2">
         <iconify-icon icon="logos:babel" />
         <span class="text-error">ESNext</span>
@@ -345,21 +348,49 @@ import { RunButton } from '../../components';
   </section>
 
   <section>
-    <code>http server</code>
-    <pre><code data-trim data-line-numbers>{`
-      const http = require('http');
+    <section>
+      <h2>http server</h2>
+      <RunKitEmbed client:visible options={{ mode: 'endpoint' }}>
+        <code data-trim
+          >{
+            `
+              const http = require('http');
 
-      const server = http.createServer((req, res) => {
-        const time = new Date();
-        const json = JSON.stringify({ time });
+              const server = http.createServer((req, res) => {
+                const time = new Date();
+                const json = JSON.stringify({ time });
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(json);
-      });
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.end(json);
+              });
 
-      server.listen(3000);
-    `}</code></pre>
-    <RunButton client:visible api="now" />
+              server.listen(3000);
+            `
+          }
+        </code>
+      </RunKitEmbed>
+    </section>
+
+    <section>
+      <h2>express</h2>
+      <RunKitEmbed client:visible options={{ mode: 'endpoint' }}>
+        <code data-trim
+          >{
+            `
+              const express = require('express');
+
+              const app = express();
+
+              app.get('/', (req, res) => {
+                res.send('<h1>Hello express!</h1>');
+              })
+
+              app.listen(3000);
+            `
+          }
+        </code>
+      </RunKitEmbed>
+    </section>
   </section>
 </Reveal>

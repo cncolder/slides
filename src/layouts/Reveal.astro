@@ -26,7 +26,7 @@ const { title = 'Slides' } = Astro.props;
     import Reveal from 'reveal.js/dist/reveal.esm.js';
     import RevealHighlight from 'reveal.js/plugin/highlight/highlight.esm.js';
     import RevealNotes from 'reveal.js/plugin/notes/notes.esm.js';
-    const reveal = Reveal({
+    const reveal = new Reveal({
       plugins: [RevealHighlight, RevealNotes],
     });
     reveal.initialize({
