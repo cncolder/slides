@@ -39,7 +39,7 @@ export function RunButton({ api }: RunButtonProps) {
 
   return (
     <>
-      <button className={clsx('btn', { loading })} onClick={run}>
+      <button className={clsx('btn btn-primary', { loading })} onClick={run}>
         Run
       </button>
 
@@ -53,11 +53,11 @@ export function RunButton({ api }: RunButtonProps) {
               type="checkbox"
             />
             <label htmlFor="run-result-modal" className="modal cursor-pointer">
-              <label className="modal-box mockup-window bg-base-300">
+              <div className="modal-box mockup-window bg-base-300">
                 <pre>
                   <code>{value}</code>
                 </pre>
-              </label>
+              </div>
             </label>
           </>,
           containerRef.current

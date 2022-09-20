@@ -125,7 +125,9 @@ import { RunButton } from '../../components';
           ><iconify-icon icon="gg:c-plus-plus" />
         </a>
         <iconify-icon icon="line-md:arrow-right" />
-        <a target="_blank" href="https://groups.google.com/g/nodejs/c/6005jwTSoxY/m/u0XvacbwmukJ"
+        <a
+          target="_blank"
+          href="https://groups.google.com/g/nodejs/c/6005jwTSoxY/m/u0XvacbwmukJ"
           ><iconify-icon icon="logos:nodejs-icon" />
         </a>
       </p>
@@ -179,7 +181,15 @@ import { RunButton } from '../../components';
           >JavaScript reference</a
         >
       </h2>
-      <pre><code>{`
+      <ul>
+        <li>Built-ins</li>
+        <li>Statements</li>
+        <li>Expressions and operators</li>
+        <li>Functions</li>
+        <li>Classes</li>
+        <li>Additional reference pages</li>
+      </ul>
+      <pre><code data-trim data-line-numbers>{`
         /* https://tc39.es */
 
         @Get('/users') getUsers() {};
@@ -191,7 +201,7 @@ import { RunButton } from '../../components';
       <a target="_blank" href="https://github.com/tc39/proposal-do-expressions"
         >tc39/proposal-do-expressions</a
       >
-      <pre><code>{`
+      <pre><code data-trim data-line-numbers>{`
         let result = do {
           let v = f();
           v * v + 1
@@ -205,7 +215,7 @@ import { RunButton } from '../../components';
         href="https://github.com/tc39/proposal-pipeline-operator"
         >tc39/proposal-pipeline-operator</a
       >
-      <pre><code>{`
+      <pre><code data-trim data-line-numbers>{`
         let data = url
           |> await fetch
           |> await %.json();
@@ -218,7 +228,7 @@ import { RunButton } from '../../components';
         href="https://github.com/tc39/proposal-pattern-matching"
         >tc39/proposal-pattern-matching</a
       >
-      <pre><code>{`
+      <pre><code data-trim data-line-numbers>{`
         const res = await fetch(api);
         match (res) {
           when ({
@@ -256,9 +266,10 @@ import { RunButton } from '../../components';
   </section>
 
   <section>
-    <h2>What's mean?</h2>
-    <p>JavaScript 没有统一的标准库.</p>
-    <p>JavaScript 没有 IO, 写不出 Hello world. 😅</p>
+    <h2>单纯的 JavaScript</h2>
+    <p>没有统一的标准库.</p>
+    <p>本身没有 IO, 写不出 Hello world.</p>
+    <p>😅</p>
   </section>
 
   <section>
@@ -276,7 +287,7 @@ import { RunButton } from '../../components';
 
   <section>
     <code>ls</code>
-    <pre><code>{`
+    <pre><code data-trim data-line-numbers>{`
       const fs = require('fs/promises');
 
       const files = await fs.readdir('.')
@@ -285,5 +296,24 @@ import { RunButton } from '../../components';
       console.log(result);
     `}</code></pre>
     <RunButton client:visible api="ls" />
+  </section>
+
+  <section>
+    <code>http server</code>
+    <pre><code data-trim data-line-numbers>{`
+      const http = require('http');
+
+      const server = http.createServer((req, res) => {
+        const time = new Date();
+        const json = JSON.stringify({ time });
+
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.end(json);
+      });
+
+      server.listen(3000);
+    `}</code></pre>
+    <RunButton client:visible api="now" />
   </section>
 </Reveal>
