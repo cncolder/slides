@@ -14,3 +14,5 @@ declare namespace astroHTML.JSX {
     'data-trim'?: boolean;
   }
 }
+
+declare module 'reveal.js/*' {}
