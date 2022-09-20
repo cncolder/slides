@@ -299,6 +299,52 @@ import { RunButton } from '../../components';
   </section>
 
   <section>
+    <section>
+      <h2>文件操作</h2>
+      <p>读写文件能做很多事, 例如</p>
+      <iconify-icon icon="logos:babel" />
+      <pre><code data-trim data-line-numbers>{`
+      const fs = require('fs/promises');
+
+      fs.readFile('App.jsx');
+      // transform code
+      fs.writeFile('bundle.js');
+    `}</code></pre>
+    </section>
+
+    <section>
+      <h2>JavaScript 版本</h2>
+      <p>ECMAScript 是标准, JavaScript 是实现.</p>
+      <p>
+        ES3 ES5 ES6
+        <br />
+        <span class="text-success">ES2015</span> ES2016 ... <span
+          class="text-warning">ES2022</span
+        >
+        <span class="text-error">ESNext</span>
+      </p>
+      <p class="fragment">
+        Babel 可以把高版本代码编译到低版本.
+      </p>
+      <p class="fragment flex justify-center items-center gap-2">
+        <iconify-icon icon="logos:babel" />
+        <span class="text-error">ESNext</span>
+        <iconify-icon icon="line-md:arrow-right" />
+        <span class="text-success">ES2015</span>
+      </p>
+    </section>
+
+    <section>
+      <h2>其他语言版本</h2>
+      <ul>
+        <li>Python/Go 体验新特性需要安装 beta 版.</li>
+        <li>Java 版本再高开发者仍然坚持使用 JDK8.</li>
+        <li>.Net framework 很大, 安装很慢.</li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
     <code>http server</code>
     <pre><code data-trim data-line-numbers>{`
       const http = require('http');

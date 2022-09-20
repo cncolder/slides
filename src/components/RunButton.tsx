@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useAsyncFn } from 'react-use';
 import { debug } from '../utils';
@@ -12,6 +12,8 @@ interface RunButtonProps {
 
 export function RunButton({ api }: RunButtonProps) {
   const modalToggleRef = useRef<HTMLInputElement>(null);
+
+  const modalId = useMemo(() => `run-result-modal-${Date.now()}`, []);
 
   const [{ loading, value }, run] = useAsyncFn(async () => {
     log('run %s', api);
@@ -48,13 +50,13 @@ export function RunButton({ api }: RunButtonProps) {
           <>
             <input
               ref={modalToggleRef}
-              id="run-result-modal"
+              id={modalId}
               className="modal-toggle"
               type="checkbox"
             />
-            <label htmlFor="run-result-modal" className="modal cursor-pointer">
-              <div className="modal-box mockup-window bg-base-300">
-                <pre>
+            <label htmlFor={modalId} className="modal cursor-pointer">
+              <div className="modal-box mockup-window p-0 py-5 bg-base-300">
+                <pre className="px-6">
                   <code>{value}</code>
                 </pre>
               </div>
