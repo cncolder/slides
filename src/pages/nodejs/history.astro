@@ -286,11 +286,16 @@ import { RunKitEmbed } from '../../components';
   </section>
 
   <section>
+    <h2>文件操作</h2>
+  </section>
+
+  <section>
     <code>ls</code>
     <RunKitEmbed client:visible>
       <code data-trim
         >{
           `
+            // #!/usr/bin/env node
             const fs = require('fs/promises');
 
             const files = await fs.readdir('.')
@@ -312,8 +317,10 @@ import { RunKitEmbed } from '../../components';
       const fs = require('fs/promises');
 
       fs.readFile('App.jsx');
+
       // transform code
-      fs.writeFile('bundle.js');
+
+      fs.writeFile('App.js');
     `}</code></pre>
     </section>
 
@@ -324,27 +331,40 @@ import { RunKitEmbed } from '../../components';
         ES3 ES5 ES6
         <br />
         <span class="text-success">ES2015</span> ES2016 ... <span
-          class="text-warning">ES2022</span
+          class="text-info">ES2022</span
         >
-        <span class="text-error">ESNext</span>
+        <span class="text-warning">ESNext</span>
       </p>
       <p class="fragment">Babel 可以把高版本代码编译到低版本.</p>
       <p class="fragment flex justify-center items-center gap-2">
         <iconify-icon icon="logos:babel" />
-        <span class="text-error">ESNext</span>
+        <span class="text-warning">ESNext</span>
         <iconify-icon icon="line-md:arrow-right" />
         <span class="text-success">ES2015</span>
       </p>
     </section>
 
     <section>
-      <h2>其他语言版本</h2>
+      <h2>对比其他语言</h2>
       <ul>
         <li>Python/Go 体验新特性需要安装 beta 版.</li>
-        <li>Java 版本再高开发者仍然坚持使用 JDK8.</li>
+        <li>Java 项目往往停留在 JDK8.</li>
         <li>.Net framework 很大, 安装很慢.</li>
       </ul>
     </section>
+
+    <section>
+      <h2>为什么前端需要构建?</h2>
+      <ul>
+        <li>JS 编译是指语法降级.</li>
+        <li>压缩节省带宽.</li>
+        <li>打包是因为 HTTP 2.0 还未普及.</li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <h2>网络请求</h2>
   </section>
 
   <section>
@@ -388,6 +408,257 @@ import { RunKitEmbed } from '../../components';
 
               app.listen(3000);
             `
+          }
+        </code>
+      </RunKitEmbed>
+    </section>
+
+    <section>
+      <h2>koa</h2>
+      <RunKitEmbed client:visible options={{ mode: 'endpoint' }}>
+        <code data-trim
+          >{
+            `
+              const Koa = require('koa');
+              const app = new Koa();
+
+              app.use(async ctx => {
+                ctx.body = '<h1>Hello koa!</h1>';
+              });
+
+              app.listen(3000);
+            `
+          }
+        </code>
+      </RunKitEmbed>
+    </section>
+
+    <section
+      data-background-image="https://d33wubrfki0l68.cloudfront.net/b48d3f70dffd76bf3152ad04e2cbb1261ef589c9/header.1af6756a.png"
+    >
+      <h2>Nest</h2>
+      <a target="_blank" href="https://nestjs.com">nestjs.com</a>
+      <pre><code data-trim>{`
+        import { Get, Controller, Render } from '@nestjs/common';
+        import { PostsService } from './posts/posts.service';
+
+        @Controller()
+        export class AppController {
+          constructor(private readonly postsService: PostsService) {}
+
+          @Get('/posts')
+          @Render('posts')
+          render() {
+            const posts = this.postsService.getPosts();
+            return { posts };
+          }
+        }
+      `}</code></pre>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <h2>View Templates</h2>
+      <p>把变量塞进模板, 输出 HTML.</p>
+      <pre><code data-trim>{`
+        import ejs from 'ejs';
+
+        const template = '<h1>Hello {<%= name %>!</h1>';
+
+        /* <h1>Hello ejs!</h1> */
+        ejs.render(template, { name: 'ejs' });
+      `}</code></pre>
+      <p>拼接字符串? 类似, 但不完全是.</p>
+      <pre><code data-trim>{`
+        const name = 'world';
+
+        \`<h1>Hello \${name}!</h1>\`;
+      `}</code></pre>
+    </section>
+
+    <section>
+      <p>ejs 语法</p>
+      <pre><code data-trim>{`
+        <!-- 条件 -->
+        <% if (user) { %>
+          <h2><%= user.name %></h2>
+        <% } %>
+
+        <!-- 循环 -->
+        <ul>
+          <% users.forEach(function(user){ %>
+            <!-- 引用 -->
+            <%- include('user/show', {user: user}); %>
+          <% }); %>
+        </ul>
+      `}</code></pre>
+    </section>
+
+    <section>
+      <p>pug 语法</p>
+      <pre><code data-trim>{`
+        <!-- 缩进 -->
+        #root.container.m-auto
+          h1.text-red Hello pug!
+      `}</code></pre>
+      <iconify-icon icon="line-md:arrow-down" />
+      <pre><code data-trim>{`
+        <div id="root" class="container m-auto">
+          <h1 class="text-red">Hello pug!</h1>
+        </div>
+      `}</code></pre>
+    </section>
+
+    <section>
+      <p>
+        多如牛毛的 <a
+          target="_blank"
+          href="https://github.com/tj/consolidate.js">template engines</a
+        >
+      </p>
+      <pre><code data-trim>{`
+        {
+          ejs:      '<h1>Hello {<%= name %>!</h1>',
+          pug:      'h1 Hello #{ name }!',
+          lodash:   '<% _.forEach(l, function(n) { %><li><%- n %></li><% }); %>',
+          mustache: '{{title}} spends {{calc}}',
+          nunjucks: '{% block nav %} <h1>{{ logo }}</h1> {% endblock %}'
+          react:    '<App title={title} />',
+        }
+      `}</code></pre>
+      <p>
+        <a
+          target="_blank"
+          href="https://github.com/jantimon/html-webpack-plugin/blob/main/docs/template-option.md"
+          >Html Webpack Plugin 示例</a
+        >
+      </p>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <p>
+        React template <a
+          target="_blank"
+          href="https://babeljs.io/repl#?code_lz=MYewdgzgLgBAggBwTAvDAFASlQPhgbwCgYZRJYBtANwEMAbAVwFMAaGCJqANXuYF1UMAEpMawKADoGHAMpQaUJugAMmANzEYAJ04MtYGAB4ARgyhRw7KAE86TFPnwAzcFBkBLAF5MAXDABMAKwAbAC-oTDgAMJ07sAA1g5YuOycPIxKtBkwANQwAIyYoTiAvBuAsjuGEAwIOPhZzKGGAPRVNc2m5uA4GqEaImJQACIA8gCyEgAW1gAmWgpMQiAgUOjTIMAMALZMYJIA5pwAonbbuwBC1gCS0-gARDRIt5hshojITTjqhEA"
+          ><iconify-icon icon="line-md:cloud-tags-loop" />
+        </a>
+      </p>
+      <RunKitEmbed
+        client:visible
+        options={{
+          mode: 'endpoint',
+          preamble: `
+            const Koa = require('koa');
+            const React = require('react');
+          `,
+        }}
+      >
+        <code data-trim
+          >{
+            `
+            const ReactDOMServer = require('react-dom/server');
+
+            const App = () => {
+              return <div style={{fontSize: 256}}>👍<sup>18</sup></div>;
+            }
+
+            new Koa()
+              .use(async ctx => {
+                ctx.body = \`
+                  <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
+                \`;
+              })
+              .listen();
+          `
+          }
+        </code>
+      </RunKitEmbed>
+    </section>
+
+    <section>
+      <p>
+        React DOM Hydrate <a
+          target="_blank"
+          href="https://babeljs.io/repl#?code_lz=MYewdgzgLgBAggBwTAvDAFASlQPhgbwCgYZRJYBtANwEMAbAVwFMAaGCJqANXuYF1UMAEpMawKADoGHAMpQaUJugAMmANzEYAJ04MtYGAB4ARgyhRw7KAE86TFPnwAzcFBkBLAF5MAXDABMAKwAbAC-oTDgAMJ07sAA1g5YuOycPIxKtBkwANQwAIyYoTiAvBuAsjuGEAwIOPhZzKGGAPRVNc2m5uA4GqEahCJiUAAiAPIAshIAFtYAJloKTEIgIFDoMyDADAC2TGCSAOacAKJ2O3sAQtYAkjPoAEQ0SHeYbIaIyE046oRAA"
+          ><iconify-icon icon="line-md:cloud-tags-loop" />
+        </a>
+      </p>
+      <RunKitEmbed
+        client:visible
+        options={{
+          mode: 'endpoint',
+          preamble: `
+            const Koa = require('koa');
+            const React = require('react');
+            const ReactDOMServer = require('react-dom/server');
+          `,
+        }}
+      >
+        <code data-trim
+          >{
+            `
+            const App = () => {
+              const [value, setValue] = React.useState(0);
+              return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
+            };
+
+            new Koa()
+              .use(async ctx => {
+                ctx.body = \`
+                  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+                  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+                  <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
+                \`;
+              })
+              .listen();
+          `
+          }
+        </code>
+      </RunKitEmbed>
+      <p><code>ReactDOM <del>.createRoot</del> .hydrateRoot</code></p>
+    </section>
+
+    <section>
+      <p>React SSR</p>
+      <RunKitEmbed
+        client:visible
+        options={{
+          mode: 'endpoint',
+          preamble: `
+            const Koa = require('koa');
+            const React = require('react');
+            const ReactDOMServer = require('react-dom/server');
+          `,
+        }}
+      >
+        <code data-trim
+          >{
+            `
+            const App = () => {
+              const [value, setValue] = React.useState(0);
+              return React.createElement("button", {
+                style: { fontSize: 256 },
+                onClick: () => setValue(value + 1)
+              }, '👍', React.createElement('sup', null, value));
+            };
+
+            new Koa()
+              .use(async ctx => {
+                ctx.body = \`
+                  <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
+                  <script type="module">
+                    import React from "https://esm.sh/react";
+                    import { hydrateRoot } from "https://esm.sh/react-dom/client";
+                    const App = \${App};
+                    hydrateRoot(document.getElementById("app"), React.createElement(App));
+                  </script>
+                \`;
+              })
+              .listen();
+          `
           }
         </code>
       </RunKitEmbed>
