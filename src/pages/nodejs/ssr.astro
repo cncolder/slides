@@ -1,0 +1,117 @@
+---
+import Reveal from '../../layouts/Reveal.astro';
+import { RunKitEmbed } from '../../components';
+---
+
+<Reveal title="Node.js 前端组件渲染">
+  <section>
+    <iconify-icon class="text-[16rem]" icon="logos:react" />
+    <h2>服务端渲染</h2>
+  </section>
+
+  <section>
+    <p>React CSR</p>
+    <pre><code data-trim data-line-numbers>{`
+      const React = require('react');
+      const {createRoot} = require('react-dom/client');
+
+      const App = () => {
+        const [value, setValue] = React.useState(0);
+        return (
+          <button onClick={() => setValue(value + 1)}>
+            👍<sup>{value}</sup>
+          </button>
+        );
+      };
+
+      createRoot(document.getElementById("app"), <App />);
+    `}
+    </code></pre>
+    <p><code>ReactDOM <span class="text-info">.createRoot</span></code></p>
+  </section>
+
+  <section>
+    <p>
+      React DOM Hydrate <a
+        target="_blank"
+        href="https://babeljs.io/repl#?code_lz=MYewdgzgLgBAggBwTAvDAFASlQPhgbwCgYZRJYBtANwEMAbAVwFMAaGCJqANXuYF1UMAEpMawKADoGHAMpQaUJugAMmANzEYAJ04MtYGAB4ARgyhRw7KAE86TFPnwAzcFBkBLAF5MAXDABMAKwAbAC-oTDgAMJ07sAA1g5YuOycPIxKtBkwANQwAIyYoTiAvBuAsjuGEAwIOPhZzKGGAPRVNc2m5uA4GqEahCJiUAAiAPIAshIAFtYAJloKTEIgIFDoMyDADAC2TGCSAOacAKJ2O3sAQtYAkjPoAEQ0SHeYbIaIyE046oRAA"
+        ><iconify-icon icon="line-md:cloud-tags-loop" />
+      </a>
+    </p>
+    <RunKitEmbed
+      client:visible
+      options={{
+        mode: 'endpoint',
+        preamble: `
+          const Koa = require('koa');
+          const React = require('react');
+          const ReactDOMServer = require('react-dom/server');
+        `,
+      }}
+    >
+      <code data-trim
+        >{
+          `
+          const App = () => {
+            const [value, setValue] = React.useState(0);
+            return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
+          };
+
+          new Koa()
+            .use(async ctx => {
+              ctx.body = \`
+                <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+                <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+                <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
+              \`;
+            })
+            .listen();
+        `
+        }
+      </code>
+    </RunKitEmbed>
+    <p><code>ReactDOM <del class="text-error">.createRoot</del> <span class="text-info">.hydrateRoot</span></code></p>
+  </section>
+
+  <section>
+    <p>React SSR</p>
+    <RunKitEmbed
+      client:visible
+      options={{
+        mode: 'endpoint',
+        preamble: `
+          const Koa = require('koa');
+          const React = require('react');
+          const ReactDOMServer = require('react-dom/server');
+        `,
+      }}
+    >
+      <code data-trim
+        >{
+          `
+          const App = () => {
+            const [value, setValue] = React.useState(0);
+            return React.createElement("button", {
+              style: { fontSize: 256 },
+              onClick: () => setValue(value + 1)
+            }, '👍', React.createElement('sup', null, value));
+          };
+
+          new Koa()
+            .use(async ctx => {
+              ctx.body = \`
+                <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
+                <script type="module">
+                  import React from "https://esm.sh/react";
+                  import { hydrateRoot } from "https://esm.sh/react-dom/client";
+                  hydrateRoot(document.getElementById("app"), React.createElement(\${App}));
+                </script>
+              \`;
+            })
+            .listen();
+        `
+        }
+      </code>
+    </RunKitEmbed>
+  </section>
+</Reveal>

@@ -1,21 +1,17 @@
 ---
 export interface Props {
   title: string;
-  link: string;
 }
 
-const { title, link } = Astro.props;
+const { title } = Astro.props;
 ---
 
-<div class="card w-96 glass shadow-md">
-  <figure>
+<div class="card w-80 glass shadow">
+  <figure class="min-h-[8rem]">
     <slot name="cover" />
   </figure>
   <div class="card-body items-center">
     <h2 class="card-title text-3xl">{title}</h2>
     <slot />
-    <div class="card-actions justify-end">
-      <a class="btn btn-primary" href={link}>Watch</a>
-    </div>
   </div>
 </div>

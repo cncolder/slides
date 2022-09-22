@@ -7,7 +7,7 @@ import Card from '../components/Card.astro';
   <header class="fixed top-0 left-0 right-0">
     <nav class="navbar h-20 bg-neutral text-neutral-content">
       <div class="navbar-start">
-        <h1 class="text-4xl font-bold">Slides</h1>
+        <h1 class="text-4xl font-bold cursor-default">Slides</h1>
       </div>
       <div class="navbar-center"></div>
       <div class="navbar-end">
@@ -22,13 +22,26 @@ import Card from '../components/Card.astro';
     </nav>
   </header>
 
-  <main class="container mx-auto my-32 flex flex-col items-center">
-    <div class="flex flex-col justify-center gap-4">
-      <Card title="Node.js 前世今生" link="/nodejs/history">
-        <iconify-icon class="text-9xl" icon="logos:nodejs" slot="cover" />
-        <p>从哪里来, 到哪里去.</p>
-        <p>可知人们对你的期许.</p>
-      </Card>
+  <main
+    class="container flex flex-col justify-center items-center mx-auto py-32 min-h-screen"
+  >
+    <div class="divider text-2xl">Node.js</div>
+    <div class="flex flex-wrap justify-evenly items-center gap-8 w-full">
+      <a href="/nodejs/history">
+        <Card title="Node.js 前世今生">
+          <iconify-icon class="pt-4 text-9xl" icon="logos:nodejs" slot="cover" />
+          <p>从哪里来 到哪里去</p>
+          <p>可知人们对你的期许</p>
+        </Card>
+      </a>
+
+      <a href="/nodejs/ssr">
+        <Card title="服务端渲染">
+          <iconify-icon class="pt-4 text-9xl" icon="logos:react" slot="cover" />
+          <p>快人一步 我行我素</p>
+          <p>不必理会强加的束缚</p>
+        </Card>
+      </a>
     </div>
   </main>
 </Layout>

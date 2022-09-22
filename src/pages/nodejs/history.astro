@@ -538,31 +538,25 @@ import { RunKitEmbed } from '../../components';
   </section>
 
   <section>
-    <section>
-      <p>
-        React template <a
-          target="_blank"
-          href="https://babeljs.io/repl#?code_lz=MYewdgzgLgBAggBwTAvDAFASlQPhgbwCgYZRJYBtANwEMAbAVwFMAaGCJqANXuYF1UMAEpMawKADoGHAMpQaUJugAMmANzEYAJ04MtYGAB4ARgyhRw7KAE86TFPnwAzcFBkBLAF5MAXDABMAKwAbAC-oTDgAMJ07sAA1g5YuOycPIxKtBkwANQwAIyYoTiAvBuAsjuGEAwIOPhZzKGGAPRVNc2m5uA4GqEaImJQACIA8gCyEgAW1gAmWgpMQiAgUOjTIMAMALZMYJIA5pwAonbbuwBC1gCS0-gARDRIt5hshojITTjqhEA"
-          ><iconify-icon icon="line-md:cloud-tags-loop" />
-        </a>
-      </p>
-      <RunKitEmbed
-        client:visible
-        options={{
-          mode: 'endpoint',
-          preamble: `
+    <p>React template</p>
+    <RunKitEmbed
+      client:visible
+      options={{
+        mode: 'endpoint',
+        preamble: `
             const Koa = require('koa');
             const React = require('react');
           `,
-        }}
-      >
-        <code data-trim
-          >{
-            `
+      }}
+    >
+      <code data-trim
+        >{
+          `
             const ReactDOMServer = require('react-dom/server');
 
             const App = () => {
-              return <div style={{fontSize: 256}}>👍<sup>18</sup></div>;
+              const [value, setValue] = React.useState(0);
+              return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
             }
 
             new Koa()
@@ -573,95 +567,13 @@ import { RunKitEmbed } from '../../components';
               })
               .listen();
           `
-          }
-        </code>
-      </RunKitEmbed>
-    </section>
+        }
+      </code>
+    </RunKitEmbed>
+  </section>
 
-    <section>
-      <p>
-        React DOM Hydrate <a
-          target="_blank"
-          href="https://babeljs.io/repl#?code_lz=MYewdgzgLgBAggBwTAvDAFASlQPhgbwCgYZRJYBtANwEMAbAVwFMAaGCJqANXuYF1UMAEpMawKADoGHAMpQaUJugAMmANzEYAJ04MtYGAB4ARgyhRw7KAE86TFPnwAzcFBkBLAF5MAXDABMAKwAbAC-oTDgAMJ07sAA1g5YuOycPIxKtBkwANQwAIyYoTiAvBuAsjuGEAwIOPhZzKGGAPRVNc2m5uA4GqEahCJiUAAiAPIAshIAFtYAJloKTEIgIFDoMyDADAC2TGCSAOacAKJ2O3sAQtYAkjPoAEQ0SHeYbIaIyE046oRAA"
-          ><iconify-icon icon="line-md:cloud-tags-loop" />
-        </a>
-      </p>
-      <RunKitEmbed
-        client:visible
-        options={{
-          mode: 'endpoint',
-          preamble: `
-            const Koa = require('koa');
-            const React = require('react');
-            const ReactDOMServer = require('react-dom/server');
-          `,
-        }}
-      >
-        <code data-trim
-          >{
-            `
-            const App = () => {
-              const [value, setValue] = React.useState(0);
-              return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
-            };
-
-            new Koa()
-              .use(async ctx => {
-                ctx.body = \`
-                  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-                  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
-                  <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
-                \`;
-              })
-              .listen();
-          `
-          }
-        </code>
-      </RunKitEmbed>
-      <p><code>ReactDOM <del>.createRoot</del> .hydrateRoot</code></p>
-    </section>
-
-    <section>
-      <p>React SSR</p>
-      <RunKitEmbed
-        client:visible
-        options={{
-          mode: 'endpoint',
-          preamble: `
-            const Koa = require('koa');
-            const React = require('react');
-            const ReactDOMServer = require('react-dom/server');
-          `,
-        }}
-      >
-        <code data-trim
-          >{
-            `
-            const App = () => {
-              const [value, setValue] = React.useState(0);
-              return React.createElement("button", {
-                style: { fontSize: 256 },
-                onClick: () => setValue(value + 1)
-              }, '👍', React.createElement('sup', null, value));
-            };
-
-            new Koa()
-              .use(async ctx => {
-                ctx.body = \`
-                  <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
-                  <script type="module">
-                    import React from "https://esm.sh/react";
-                    import { hydrateRoot } from "https://esm.sh/react-dom/client";
-                    const App = \${App};
-                    hydrateRoot(document.getElementById("app"), React.createElement(App));
-                  </script>
-                \`;
-              })
-              .listen();
-          `
-          }
-        </code>
-      </RunKitEmbed>
-    </section>
+  <section>
+    <h2>Next</h2>
+    <p><a href="/nodejs/ssr">Server Side Rendering</a></p>
   </section>
 </Reveal>
