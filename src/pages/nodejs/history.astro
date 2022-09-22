@@ -1,6 +1,7 @@
 ---
 import Reveal from '../../layouts/Reveal.astro';
 import { RunKitEmbed } from '../../components';
+import ReactTemplate from '../../components/NodejsSsr/ReactTemplate.astro';
 ---
 
 <Reveal title="Node.js 的前世今生">
@@ -16,7 +17,7 @@ import { RunKitEmbed } from '../../components';
     <p class="text-2xl">
       Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
     </p>
-    <p>提到 Node.js, 总绕不过 JavaScript.</p>
+    <p>提到 Node.js, 绕不过 JavaScript.</p>
   </section>
 
   <section data-auto-animate>
@@ -537,40 +538,7 @@ import { RunKitEmbed } from '../../components';
     </section>
   </section>
 
-  <section>
-    <p>React template</p>
-    <RunKitEmbed
-      client:visible
-      options={{
-        mode: 'endpoint',
-        preamble: `
-            const Koa = require('koa');
-            const React = require('react');
-          `,
-      }}
-    >
-      <code data-trim
-        >{
-          `
-            const ReactDOMServer = require('react-dom/server');
-
-            const App = () => {
-              const [value, setValue] = React.useState(0);
-              return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
-            }
-
-            new Koa()
-              .use(async ctx => {
-                ctx.body = \`
-                  <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
-                \`;
-              })
-              .listen();
-          `
-        }
-      </code>
-    </RunKitEmbed>
-  </section>
+  <ReactTemplate />
 
   <section>
     <h2>Next</h2>

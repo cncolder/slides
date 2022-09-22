@@ -1,0 +1,19 @@
+---
+import { RunKitEmbed } from '../RunKitEmbed';
+import ReactTemplateCode from './ReactTemplateCode.js?raw';
+
+const [preamble, ...codes] = ReactTemplateCode.split('\n\n');
+---
+
+<section>
+  <p>React template</p>
+  <RunKitEmbed
+    client:visible
+    options={{
+      mode: 'endpoint',
+      preamble,
+    }}
+  >
+    <code>{codes.join('\n\n')}</code>
+  </RunKitEmbed>
+</section>

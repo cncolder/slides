@@ -13,6 +13,10 @@ declare namespace astroHTML.JSX {
     'data-line-numbers'?: boolean | string;
     'data-trim'?: boolean;
   }
+
+  interface HTMLImageAttributes {
+    'data-src'?: string;
+  }
 }
 
 declare module 'reveal.js/dist/reveal.esm.js' {

@@ -1,6 +1,8 @@
 ---
 import Reveal from '../../layouts/Reveal.astro';
 import { RunKitEmbed } from '../../components';
+import ReactTemplate from '../../components/NodejsSsr/ReactTemplate.astro';
+import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
 ---
 
 <Reveal title="Node.js 前端组件渲染">
@@ -11,7 +13,7 @@ import { RunKitEmbed } from '../../components';
 
   <section>
     <p>React CSR</p>
-    <pre><code data-trim data-line-numbers>{`
+    <pre><code data-trim data-line-numbers="4-11|13">{`
       const React = require('react');
       const {createRoot} = require('react-dom/client');
 
@@ -29,6 +31,8 @@ import { RunKitEmbed } from '../../components';
     </code></pre>
     <p><code>ReactDOM <span class="text-info">.createRoot</span></code></p>
   </section>
+
+  <ReactTemplate />
 
   <section>
     <p>
@@ -52,66 +56,82 @@ import { RunKitEmbed } from '../../components';
       <code data-trim
         >{
           `
-          const App = () => {
-            const [value, setValue] = React.useState(0);
-            return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
-          };
+            const App = () => {
+              const [value, setValue] = React.useState(0);
+              return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
+            };
 
-          new Koa()
-            .use(async ctx => {
-              ctx.body = \`
-                <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-                <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
-                <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
-              \`;
-            })
-            .listen();
+            new Koa()
+              .use(async ctx => {
+                ctx.body = \`
+                  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+                  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+                  <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
+                \`;
+              })
+              .listen();
         `
         }
       </code>
     </RunKitEmbed>
-    <p><code>ReactDOM <del class="text-error">.createRoot</del> <span class="text-info">.hydrateRoot</span></code></p>
+    <p>
+      <code
+        >ReactDOM <del class="text-error">.createRoot</del>
+        <span class="text-info">.hydrateRoot</span>
+      </code>
+    </p>
+  </section>
+
+  <ReactSsr />
+
+  <section>
+    <div class="r-stack">
+      <p>SSR vs CSR</p>
+      <img
+        class="fragment"
+        src="https://miro.medium.com/max/1400/1*jJkEQpgZ8waQ5P-W5lhxuQ.png"
+      />
+      <img
+        class="fragment"
+        src="https://miro.medium.com/max/1400/1*CRiH0hUGoS3aoZaIY4H2yg.png"
+      />
+    </div>
   </section>
 
   <section>
-    <p>React SSR</p>
-    <RunKitEmbed
-      client:visible
-      options={{
-        mode: 'endpoint',
-        preamble: `
-          const Koa = require('koa');
-          const React = require('react');
-          const ReactDOMServer = require('react-dom/server');
-        `,
-      }}
-    >
-      <code data-trim
-        >{
-          `
-          const App = () => {
-            const [value, setValue] = React.useState(0);
-            return React.createElement("button", {
-              style: { fontSize: 256 },
-              onClick: () => setValue(value + 1)
-            }, '👍', React.createElement('sup', null, value));
-          };
-
-          new Koa()
-            .use(async ctx => {
-              ctx.body = \`
-                <div id="app">\${ReactDOMServer.renderToString(<App />)}</div>
-                <script type="module">
-                  import React from "https://esm.sh/react";
-                  import { hydrateRoot } from "https://esm.sh/react-dom/client";
-                  hydrateRoot(document.getElementById("app"), React.createElement(\${App}));
-                </script>
-              \`;
-            })
-            .listen();
-        `
-        }
-      </code>
-    </RunKitEmbed>
+    <h2>Pros</h2>
+    <ul>
+      <li>
+        首屏渲染
+        <div class="text-sm">用户第一时间有内容可看, 而不是对着空白页.</div>
+      </li>
+      <li>
+        数据获取
+        <div class="text-sm">
+          后端提前准备好数据, 不必等待前端 js 运行后再调用 API.
+        </div>
+      </li>
+      <li>
+        SEO
+        <div class="text-sm">搜索引擎有东西可爬.</div>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h2>Cons</h2>
+    <ul>
+      <li>
+        占用资源
+        <div class="text-sm">
+          本来 static host 的 app, 现在需要 node server.
+        </div>
+      </li>
+      <li>
+        开发复杂
+        <div class="text-sm">
+          React SSR 概念产生较晚, 社区生态没有完全做好准备.
+        </div>
+      </li>
+    </ul>
   </section>
 </Reveal>

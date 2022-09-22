@@ -1,0 +1,19 @@
+---
+import { RunKitEmbed } from '../RunKitEmbed';
+import ReactSsrCode from './ReactSsrCode.js?raw';
+
+const [preamble, ...codes] = ReactSsrCode.split('\n\n');
+---
+
+<section>
+  <p>React SSR</p>
+  <RunKitEmbed
+    client:visible
+    options={{
+      mode: 'endpoint',
+      preamble
+    }}
+  >
+    <code>{codes.join('\n\n')}</code>
+  </RunKitEmbed>
+</section>
