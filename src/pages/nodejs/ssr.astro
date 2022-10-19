@@ -102,8 +102,8 @@ import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
     <h2>Pros</h2>
     <ul>
       <li>
-        首屏渲染
-        <div class="text-sm">用户第一时间有内容可看, 而不是对着空白页.</div>
+        内容立即可见
+        <div class="text-sm">用户第一时间有内容可看, 不用对着空白页面等.</div>
       </li>
       <li>
         数据获取
@@ -117,9 +117,18 @@ import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
       </li>
     </ul>
   </section>
+
   <section>
     <h2>Cons</h2>
     <ul>
+      <li>
+        页面跳转慢
+        <div class="text-sm">前端路由跳转是瞬间的, 经过后端必然变慢.</div>
+      </li>
+      <li>
+        容易遭到攻击
+        <div class="text-sm">多了一个应用服务器, 多一层风险.</div>
+      </li>
       <li>
         占用资源
         <div class="text-sm">
