@@ -6,7 +6,7 @@ const App = () => {
   const [value, setValue] = React.useState(0);
   return React.createElement(
     'button',
-    { style: { fontSize: 256 }, onClick: () => setValue(value + 1) },
+    { style: { fontSize: 96 }, onClick: () => setValue(value + 1) },
     '👍',
     React.createElement('sup', null, value)
   );

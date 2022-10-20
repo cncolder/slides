@@ -8,7 +8,41 @@ import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
 <Reveal title="Node.js 前端组件渲染">
   <section>
     <iconify-icon class="text-[16rem]" icon="logos:react" />
-    <h2>服务端渲染</h2>
+    <h2>SSR 服务端渲染</h2>
+  </section>
+
+  <section>
+    <section>
+      <dl>
+        <dt>SSR</dt>
+        <dd>Server-side rendering</dd>
+        <dt>SSG</dt>
+        <dd>Static-site generation</dd>
+        <dt>CSR</dt>
+        <dd>Client-side rendering</dd>
+        <dt class="opacity-40">ISR</dt>
+        <dd class="opacity-40">Incremental Static Regeneration</dd>
+      </dl>
+    </section>
+
+    <section>
+      <p>View template / Server-side rendering</p>
+      <dl>
+        <dt>Python SSR?</dt>
+        <dd>
+          <iconify-icon icon="line-md:search" />
+          <a
+            target="_blank"
+            href="https://docs.djangoproject.com/en/4.1/search/?q=SSR">Django</a
+          >
+          <a
+            target="_blank"
+            href="https://flask.palletsprojects.com/en/2.2.x/search/?q=SSR"
+            >Flask</a
+          >
+        </dd>
+      </dl>
+    </section>
   </section>
 
   <section>
@@ -26,7 +60,7 @@ import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
         );
       };
 
-      createRoot(document.getElementById("app"), <App />);
+      createRoot(document.getElementById("app")).render(<App />);
     `}
     </code></pre>
     <p><code>ReactDOM <span class="text-info">.createRoot</span></code></p>
@@ -58,7 +92,7 @@ import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
           `
             const App = () => {
               const [value, setValue] = React.useState(0);
-              return <button style={{fontSize: 256}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
+              return <button style={{fontSize: 96}} onClick={() => setValue(value + 1)}>👍<sup>{value}</sup></button>;
             };
 
             new Koa()
@@ -85,62 +119,352 @@ import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
   <ReactSsr />
 
   <section>
-    <div class="r-stack">
-      <p>SSR vs CSR</p>
-      <img
-        class="fragment"
-        src="https://miro.medium.com/max/1400/1*jJkEQpgZ8waQ5P-W5lhxuQ.png"
-      />
-      <img
-        class="fragment"
-        src="https://miro.medium.com/max/1400/1*CRiH0hUGoS3aoZaIY4H2yg.png"
-      />
-    </div>
+    <section>
+      <div class="r-stack">
+        <p>SSR vs CSR</p>
+        <img
+          class="fragment"
+          src="https://miro.medium.com/max/1400/1*jJkEQpgZ8waQ5P-W5lhxuQ.png"
+        />
+        <img
+          class="fragment"
+          src="https://miro.medium.com/max/1400/1*CRiH0hUGoS3aoZaIY4H2yg.png"
+        />
+      </div>
+    </section>
   </section>
 
   <section>
-    <h2>Pros</h2>
-    <ul>
-      <li>
-        内容立即可见
-        <div class="text-sm">用户第一时间有内容可看, 不用对着空白页面等.</div>
-      </li>
-      <li>
-        数据获取
-        <div class="text-sm">
-          后端提前准备好数据, 不必等待前端 js 运行后再调用 API.
-        </div>
-      </li>
-      <li>
-        SEO
-        <div class="text-sm">搜索引擎有东西可爬.</div>
-      </li>
-    </ul>
+    <section>
+      <h2>Pros</h2>
+      <ul>
+        <li>
+          内容立即可见
+          <div class="text-sm">用户第一时间有内容可看, 不用对着空白页面等.</div>
+        </li>
+        <li>
+          数据获取
+          <div class="text-sm">
+            后端提前准备好数据, 不必等待前端 js 运行后再调用 API.
+          </div>
+        </li>
+        <li>
+          搜索引擎优化(SEO)
+          <div class="text-sm">搜索引擎有东西可爬.</div>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Cons</h2>
+      <ul>
+        <li>
+          页面加载慢
+          <div class="text-sm">应用服务器比静态服务器慢.</div>
+        </li>
+        <li>
+          页面跳转慢
+          <div class="text-sm">前端路由跳转是瞬间的, 经过后端必然变慢.</div>
+        </li>
+        <li>
+          占用服务器资源
+          <div class="text-sm">nginx 能做的事, 现在需要 app server.</div>
+        </li>
+        <li>
+          易受攻击
+          <div class="text-sm">多了一个应用服务器, 多一层风险.</div>
+        </li>
+        <li>
+          开发复杂
+          <div class="text-sm">SSR 概念产生较晚, 社区生态没有完全做好准备.</div>
+        </li>
+      </ul>
+    </section>
   </section>
 
   <section>
-    <h2>Cons</h2>
-    <ul>
-      <li>
-        页面跳转慢
-        <div class="text-sm">前端路由跳转是瞬间的, 经过后端必然变慢.</div>
-      </li>
-      <li>
-        容易遭到攻击
-        <div class="text-sm">多了一个应用服务器, 多一层风险.</div>
-      </li>
-      <li>
-        占用资源
-        <div class="text-sm">
-          本来 static host 的 app, 现在需要 node server.
+    <h2>SSR 框架(们)</h2>
+  </section>
+
+  <section>
+    <section>
+      <iconify-icon class="text-[16rem]" icon="logos:nextjs-icon" />
+      <p>Next.js</p>
+      <div><a target="_blank" href="https://nextjs.org">nextjs.org</a></div>
+    </section>
+
+    <section
+      data-background-video="https://assets.vercel.com/video/upload/v1587435551/front/blog/zeit-is-now-vercel/vercel-drawing-dark.mp4"
+    >
+    </section>
+
+    <section>
+      <ul>
+        <li>next</li>
+        <li>swr</li>
+        <li>now</li>
+        <li>ncc</li>
+        <li>pkg</li>
+      </ul>
+    </section>
+
+    <section>
+      <ul>
+        <li>
+          <code>npx create-next-app</code>
+        </li>
+        <li>
+          <a target="_blank" href="https://next.new">next.new</a>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <p>getServerSideProps</p>
+      <pre><code data-trim data-line-numbers="5,9">{`
+        import React from 'react';
+
+        export async function getServerSideProps() {
+          return {
+            props: { votes: 10 },
+          }
+        }
+
+        export default (props) => {
+          const [value, setValue] = React.useState(props.votes);
+          return (
+            <button style={{fontSize: 96}} onClick={() => setValue(value + 1)}>
+              👍<sup>{value}</sup>
+            </button>
+          );
+        };
+      `}
+      </code></pre>
+    </section>
+
+    <section>
+      <p>File-system based router</p>
+      <pre><code data-trim data-line-numbers>{`
+        /*
+          pages
+          ├── index.js               /
+          └── blog
+              ├── index.js           /blog
+              └── [id].js            /blog/123
+        */
+
+        import Link from 'next/link';
+
+        <Link href="/blog/hello-world">
+      `}
+      </code></pre>
+    </section>
+
+    <section>
+      <p>API Routes</p>
+      <pre><code data-trim data-line-numbers>{`
+        /*
+          pages
+          └── api
+              └── hello
+                  └── [name].js            /api/hello/colder
+        */
+
+        export default function handler(req, res) {
+          const { name } = req.query
+          res.end('Hello ' + name);
+        }
+      `}
+      </code></pre>
+    </section>
+
+    <section>
+      <p>Other features</p>
+      <ul>
+        <li>Built-In CSS Support</li>
+        <li>Image Component</li>
+        <li>Font Optimization</li>
+        <li>
+          <div>Environment Variables</div>
+          <div class="text-red-500">DB_PASSWORD</div>
+          <div>
+            <span class="text-green-500">NEXT_PUBLIC_</span>ANALYTICS_ID
+          </div>
+        </li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <iconify-icon class="p-4 bg-violet-600 text-[16rem]" icon="logos:astro" />
+      <p>Astro</p>
+      <div><a target="_blank" href="https://astro.build">astro.build</a></div>
+    </section>
+
+    <section>
+      <ul>
+        <li>
+          <code>npm create astro</code>
+        </li>
+        <li>
+          <a target="_blank" href="https://astro.new">astro.new</a>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <p>pages/index<span class="text-purple-500">.astro</span></p>
+      <pre><code data-trim data-line-numbers>{`
+        ---
+        import Button from './Button.astro';
+        import pokemon from '../data/pokemon.json';
+        import Home from '../components/Home.jsx';
+        ---
+
+        <div>
+          <Button title="Button 1" />
+
+          <ul>
+            {pokemon.map(({ name }) => <li>{name}</li>)}
+          </ul>
+
+          <!-- 100% HTML, Zero JavaScript loaded on the page! -->
+          <Home />
         </div>
-      </li>
-      <li>
-        开发复杂
-        <div class="text-sm">
-          React SSR 概念产生较晚, 社区生态没有完全做好准备.
+
+        <script is:inline>
+          grecaptcha.ready(() => {
+            grecaptcha.execute({RECAPTCHA_KEY});
+          });
+        </script>
+      `}
+      </code></pre>
+    </section>
+
+    <section
+      data-background-image="https://res.cloudinary.com/wedding-website/image/upload/v1596766231/islands-architecture-1.png"
+      data-background-size="contain"
+    >
+    </section>
+
+    <section>
+      <p>Islands Architecture</p>
+      <pre><code data-trim data-line-numbers>{`
+        ---
+        import Header from '../components/Header.jsx';
+        import Sidebar from '../components/Sidebar.jsx';
+        import Carousel from '../components/Carousel.vue';
+        import Footer from '../components/Footer.svelte';
+        ---
+
+        <div>
+          <Header client:load />
+          <Sidebar client:load />
+          <Carousel client:only="vue" />
+          <Footer client:visible />
         </div>
-      </li>
-    </ul>
+      `}
+      </code></pre>
+    </section>
+
+    <section>
+      <p>fetch() in Astro</p>
+      <pre><code data-trim data-line-numbers>{`
+        ---
+        import Profile from '../components/Profile.jsx';
+
+        const res = await fetch('https://randomuser.me/api/');
+        const data = await res.json();
+        const user = data.results[0];
+        ---
+
+        <div>
+          <h2>{user.name.first} {user.name.last}</h2>
+          <Profile client:load user={user} />
+        </div>
+      `}
+      </code></pre>
+    </section>
+
+    <section>
+      <p>fetch() in React Component</p>
+      <pre><code data-trim data-line-numbers="1-11|4-11">{`
+        const res = await fetch('https://randomuser.me/api/');
+        const data = await res.json();
+
+        const user = data.results[0];
+        console.log(user);
+
+        export const Profile = () => {
+          return (
+            <h2>{user.name.first} {user.name.last}</h2>
+          );
+        };
+      `}
+      </code></pre>
+    </section>
+
+    <section>
+      <p>File-system based router</p>
+      <pre><code data-trim data-line-numbers>{`
+        /*
+          pages
+          ├── index.astro            /
+          └── blog
+              ├── index.astro        /blog
+              └── [id].astro         /blog/123
+        */
+
+        <a href="/blog/hello-world">
+      `}
+      </code></pre>
+    </section>
+
+    <section>
+      <p>Endpoints</p>
+      <pre><code data-trim data-line-numbers>{`
+        /*
+          pages
+          ├── data.js                /data
+          └── favicon.png.ts         /favicon.png
+        */
+
+        export async function get({params, request}) {
+          return {
+            body: JSON.stringify({
+              name: 'Astro',
+              url: 'https://astro.build/',
+            }),
+          };
+        }
+      `}
+      </code></pre>
+    </section>
+  </section>
+
+  <section>
+    <section>
+      <iconify-icon class="text-[16rem]" icon="logos:qwik" />
+      <p>Qwik</p>
+      <div>
+        <a target="_blank" href="https://qwik.builder.io">qwik.builder.io</a>
+      </div>
+    </section>
+
+    <section>
+      <ul>
+        <li>
+          <code>npm create qwik</code>
+        </li>
+        <li>
+          <a target="_blank" href="https://qwik.new">qwik.new</a>
+        </li>
+      </ul>
+    </section>
+  </section>
+
+  <section>
+    <h2>Thank you</h2>
   </section>
 </Reveal>
