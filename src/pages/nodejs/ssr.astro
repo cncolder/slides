@@ -462,9 +462,43 @@ import ReactSsr from '../../components/NodejsSsr/ReactSsr.astro';
         </li>
       </ul>
     </section>
+
+    <section>
+      <p>服务端渲染 html + js(1kb)</p>
+    </section>
+
+    <section>
+      <p>Serialization</p>
+      <pre><code data-trim data-line-numbers>{`
+        import { component$ } from '@builder.io/qwik';
+
+        export const data = Promise.resolve('data');
+
+        export const Demo = component$(() => {
+          console.log(topLevel);
+
+          return (
+            <button onClick$={() => {
+              console.log(topLevel);
+            }} />
+          );
+        });
+      `}
+      </code></pre>
+    </section>
   </section>
 
   <section>
-    <h2>Thank you</h2>
+    <h2>Edge Compute</h2>
+    <ul>
+      <li><a target="_blank" href="https://aws.amazon.com/lambda/edge/">AWS CloudFront Lambda@Edge</a></li>
+      <li><a target="_blank" href="https://workers.cloudflare.com">Cloudflare Workers</a></li>
+      <li><a target="_blank" href="https://vercel.com/features/edge-functions">Vercel Edge Functions</a></li>
+      <li><a target="_blank" href="https://docs.netlify.com/edge-functions/overview/">Netlify Edge Functions</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <p>Thank you</p>
   </section>
 </Reveal>
